@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -7,18 +9,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Basic List';
+    const title = 'Horizontal list';
 
     return MaterialApp(
       title: title,
       home: Scaffold(
         appBar: AppBar(title: const Text(title)),
-        body: ListView(
-          children: const <Widget>[
-            ListTile(leading: Icon(Icons.map), title: Text('Map')),
-            ListTile(leading: Icon(Icons.photo_album), title: Text('Album')),
-            ListTile(leading: Icon(Icons.phone), title: Text('Phone')),
-          ],
+        body: Container(
+          margin: const EdgeInsets.symmetric(vertical: 20),
+          height: 200,
+          child: ScrollConfiguration(
+            // Add a custom scroll behavior that
+            // allows all devices to drag the list.
+            behavior: const MaterialScrollBehavior().copyWith(
+              dragDevices: {...PointerDeviceKind.values},
+            ),
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                for (final color in Colors.primaries)
+                  Container(width: 160, color: color),
+              ],
+            ),
+          ),
         ),
       ),
     );
