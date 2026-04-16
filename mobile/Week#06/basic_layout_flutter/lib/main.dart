@@ -1,37 +1,34 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Horizontal list';
+    const title = 'Grid List';
 
     return MaterialApp(
       title: title,
       home: Scaffold(
         appBar: AppBar(title: const Text(title)),
-        body: Container(
-          margin: const EdgeInsets.symmetric(vertical: 20),
-          height: 200,
-          child: ScrollConfiguration(
-            // Add a custom scroll behavior that
-            // allows all devices to drag the list.
-            behavior: const MaterialScrollBehavior().copyWith(
-              dragDevices: {...PointerDeviceKind.values},
-            ),
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                for (final color in Colors.primaries)
-                  Container(width: 160, color: color),
-              ],
-            ),
-          ),
+        body: GridView.count(
+          // Create a grid with 2 columns.
+          // If you change the scrollDirection to horizontal,
+          // this produces 2 rows.
+          crossAxisCount: 2,
+          // Generate 100 widgets that display their index in the list.
+          children: List.generate(100, (index) {
+            return Center(
+              child: Text(
+                'Item $index',
+                style: TextTheme.of(context).headlineSmall,
+              ),
+            );
+          }),
         ),
       ),
     );
