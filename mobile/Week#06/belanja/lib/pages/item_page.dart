@@ -6,7 +6,7 @@ class ItemPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final item = ModalRoute.of(context)!.settings.arguments as Item;
+    final itemArgs = ModalRoute.of(context)!.settings.arguments as Item;
 
     return Scaffold(
       appBar: AppBar(
@@ -14,14 +14,31 @@ class ItemPage extends StatelessWidget {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '${item.name} with ${item.price}',
-              style: const TextStyle(fontSize: 24),
+            Hero(
+              tag: itemArgs.name,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  itemArgs.image,
+                  width: double.infinity,
+                  height: 250,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
+            const SizedBox(height: 16),
+            Text(
+              itemArgs.name,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            Text('Rp ${itemArgs.price}'),
+            Text('Stock: ${itemArgs.stock}'),
+            Text('Rating: ${itemArgs.rating} ⭐'),
           ],
         ),
       ),
