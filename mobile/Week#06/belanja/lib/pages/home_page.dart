@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/item.dart';
 import '../widgets/item_card.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -44,11 +45,7 @@ class HomePage extends StatelessWidget {
 
           return GestureDetector(
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                '/item',
-                arguments: item,
-              );
+              context.push('/item', extra: item);
             },
             child: ItemCard(item: item),
           );

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import '../models/item.dart';
 
 class ItemPage extends StatelessWidget {
-  const ItemPage({super.key});
+  final Item item;
+
+  const ItemPage({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
-    final itemArgs = ModalRoute.of(context)!.settings.arguments as Item;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Shopping List'),
@@ -20,11 +20,11 @@ class ItemPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
-              tag: itemArgs.name,
+              tag: item.name,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
-                  itemArgs.image,
+                  item.image,
                   width: double.infinity,
                   height: 250,
                   fit: BoxFit.cover,
@@ -33,12 +33,12 @@ class ItemPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              itemArgs.name,
+              item.name,
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            Text('Rp ${itemArgs.price}'),
-            Text('Stock: ${itemArgs.stock}'),
-            Text('Rating: ${itemArgs.rating} ⭐'),
+            Text('Rp ${item.price}'),
+            Text('Stock: ${item.stock}'),
+            Text('Rating: ${item.rating} ⭐'),
           ],
         ),
       ),
